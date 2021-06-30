@@ -55,7 +55,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="3">
+                                    <td colspan="4">
                                         <div class="p-3 bg-gray-50 text-gray-700 rounded shadow-sm">
                                             {{ __('未查詢到任何試卷') }}
                                         </div>
@@ -65,7 +65,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="3">
+                                <td colspan="4">
                                     {{ $data->links() }}
                                 </td>
                             </tr>
@@ -114,7 +114,7 @@
                                                 value="{{ __('項目名稱') }}" />
                                             <x-jet-input id="comment_projects.{{ $index }}.name"
                                                 class="block mt-1 w-full" type="text"
-                                                wire:model.debounce.500ms="comment_projects.{{ $index }}.name" />
+                                                wire:model.defer="comment_projects.{{ $index }}.name" />
                                             @error('comment_projects.' . $index . '.name') <span
                                                 class="error">{{ $message }}</span> @enderror
                                         </div>
@@ -134,7 +134,7 @@
                                                         value="{{ __('表現向度') }}" />
                                                     <textarea
                                                         id="comment_projects.{{ $index }}.project_contents.{{ $index2 }}.dimension"
-                                                        wire:model.debounce.500ms="comment_projects.{{ $index }}.project_contents.{{ $index2 }}.dimension"
+                                                        wire:model.defer="comment_projects.{{ $index }}.project_contents.{{ $index2 }}.dimension"
                                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
                                                     @error('comment_projects.' . $index . '.project_contents.' . $index2
                                                         . '.dimension')
@@ -146,7 +146,7 @@
                                                         value="{{ __('表現等級內容') }}" />
                                                     <textarea rows="4"
                                                         id="comment_projects.{{ $index }}.project_contents.{{ $index2 }}.level_content"
-                                                        wire:model.debounce.500ms="comment_projects.{{ $index }}.project_contents.{{ $index2 }}.level_content"
+                                                        wire:model.defer="comment_projects.{{ $index }}.project_contents.{{ $index2 }}.level_content"
                                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
                                                     @error('comment_projects.' . $index . '.project_contents.' . $index2
                                                         . '.level_content')
@@ -193,11 +193,11 @@
 
                 @if($data->count())
                 <x-jet-dialog-modal wire:model="ModalPreviewVisible">
-                        <x-slot name="title">
+                    <x-slot name="title">
                             {{ __('預覽評論試卷') }}
                         </x-slot>
 
-                    <x-slot name="content">
+                        <x-slot name="content">
                         <div class="mt-4">
                             <div class="text-xl text-gray-600 leading-7 font-semibold">
                                 <p>評論試卷名稱：{{ $name }}</p>

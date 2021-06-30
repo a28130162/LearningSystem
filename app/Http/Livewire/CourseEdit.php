@@ -30,8 +30,10 @@ class CourseEdit extends Component
     public function mount($course)
     {
         $this->course_Id = $course;
-        if (Course::find($course)->user_id !== Auth::user()->id || Auth::user()->role != 'admin') {
-            return abort(403, '權限錯誤');
+        if (Course::find($course)->user_id !== Auth::user()->id) {
+            if (Auth::user()->role != 'admin') {
+                return abort(403, '權限錯誤');
+            }
         }
         $this->resetPage();
     }

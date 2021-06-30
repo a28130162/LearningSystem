@@ -68,8 +68,9 @@
                                     <div class="mt-4 text-xl text-gray-600 leading-7 font-semibold">
                                         {{ $case_information->title }}
                                     </div>
-                                    <div class="mt-2 text-xl text-gray-600">
-                                        {{ $case_information->content }}
+                                    <div class="mt-2">
+                                        <textarea disabled rows="4" style="resize:none;"
+                                        class="block text-lg text-gray-600 mb-2 mt-1 w-full border-none">{{ $case_information->content }}</textarea>
                                     </div>
                                     @if ($case_information->video != '')
                                         <div class="mt-4">
@@ -111,12 +112,13 @@
                                             <div class="mt-4 text-lg text-gray-600 leading-7 font-semibold">
                                                 {{ $problem_assessment->title }}
                                             </div>
-                                            <div class="mt-2 text-lg text-gray-600">
-                                                {{ $problem_assessment->content }}
+                                            <div class="mt-2">
+                                                <textarea disabled rows="2" style="resize:none;"
+                                                class="block text-lg text-gray-600 mb-2 mt-1 w-full border-none">{{ $problem_assessment->content }}</textarea>
                                             </div>
                                             <textarea
                                                 id="problem_assessment_answers.{{ $index }}.{{ $index2 }}.content"
-                                                wire:model="problem_assessment_answers.{{ $index }}.{{ $index2 }}.content"
+                                                wire:model.defer="problem_assessment_answers.{{ $index }}.{{ $index2 }}.content"
                                                 class="block mb-2 mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
                                         @endforeach
                                     </div>
@@ -133,11 +135,12 @@
                                         <div class="mt-4 text-lg text-gray-600 leading-7 font-semibold">
                                             {{ $problem_solved->title }}
                                         </div>
-                                        <div class="mt-2 text-lg text-gray-600">
-                                            {{ $problem_solved->content }}
+                                        <div class="mt-2">
+                                            <textarea disabled rows="2" style="resize:none;"
+                                            class="block text-lg text-gray-600 mb-2 mt-1 w-full border-none">{{ $problem_solved->content }}</textarea>
                                         </div>
                                         <textarea id="problem_solved_answers.{{ $index }}.content"
-                                            wire:model="problem_solved_answers.{{ $index }}.content"
+                                            wire:model.defer="problem_solved_answers.{{ $index }}.content"
                                             class="block mb-2 mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
                                     @endforeach
                                 </div>
@@ -188,8 +191,9 @@
                                     <div class="mt-4 text-xl text-gray-600 leading-7 font-semibold">
                                         {{ $question_description->title }}
                                     </div>
-                                    <div class="mt-2 text-xl text-gray-600">
-                                        {{ $question_description->content }}
+                                    <div class="mt-2">
+                                        <textarea disabled rows="4" style="resize:none;"
+                                        class="block text-lg text-gray-600 mb-2 mt-1 w-full border-none">{{ $question_description->content }}</textarea>
                                     </div>
                                 </div>
                             @endforeach

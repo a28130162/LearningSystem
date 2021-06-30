@@ -16,8 +16,10 @@ class CourseQuestion extends Component
     public function mount($course)
     {
         $this->course = $course;
-        if (!in_array(Auth::user()->id, Course::find($course)->users()->get()) || Auth::user()->role != 'admin') {
-            return abort(403, '權限錯誤');
+        if (!Course::find($course)->users()->get()->where('id', Auth::user()->id)->first()) {
+            if (Auth::user()->role != 'admin') {
+                return abort(403, '權限錯誤');
+            }
         }
     }
 

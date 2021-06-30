@@ -153,7 +153,7 @@
                                             <x-jet-label for="question_descriptions.{{ $index }}.content"
                                                 value="{{ __('內容') }}" />
                                             <textarea id="question_descriptions.{{ $index }}.content"
-                                                wire:model.debounce.99999999ms="question_descriptions.{{ $index }}.content"
+                                                wire:model.defer="question_descriptions.{{ $index }}.content"
                                                 class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                                                 rows="5">
                                             </textarea>
@@ -198,7 +198,7 @@
                                             <x-jet-label for="case_informations.{{ $index }}.content"
                                                 value="{{ __('內容') }}" />
                                             <textarea id="case_informations.{{ $index }}.content"
-                                                wire:model.debounce.99999999ms="case_informations.{{ $index }}.content"
+                                                wire:model.defer="case_informations.{{ $index }}.content"
                                                 class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                                                 rows="5">
                                             </textarea>
@@ -253,9 +253,9 @@
                                             <x-jet-label for="problem_assessments.{{ $index }}.content"
                                                 value="{{ __('內容') }}" />
                                             <textarea id="problem_assessments.{{ $index }}.content"
-                                                wire:model.debounce.99999999ms="problem_assessments.{{ $index }}.content"
+                                                wire:model.defer="problem_assessments.{{ $index }}.content"
                                                 class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                                                rows="5">
+                                                rows="2">
                                             </textarea>
                                             @error('problem_assessments.' . $index . '.content')
                                                 <span class="error">{{ $message }}</span>
@@ -298,9 +298,9 @@
                                             <x-jet-label for="problem_solveds.{{ $index }}.content"
                                                 value="{{ __('內容') }}" />
                                             <textarea id="problem_solveds.{{ $index }}.content"
-                                                wire:model.debounce.99999999ms="problem_solveds.{{ $index }}.content"
+                                                wire:model.defer="problem_solveds.{{ $index }}.content"
                                                 class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                                                rows="5">
+                                                rows="2">
                                             </textarea>
                                             @error('problem_solveds.' . $index . '.content')
                                                 <span class="error">{{ $message }}</span>
@@ -382,8 +382,9 @@
                                         <div class="mt-4 text-xl text-gray-600 leading-7 font-semibold">
                                             {{ $question_descriptions[$index]['title'] }}
                                         </div>
-                                        <div class="mt-2 text-xl text-gray-600">
-                                            {{ $question_descriptions[$index]['content'] }}
+                                        <div class="mt-2">
+                                            <textarea disabled rows="4" style="resize:none;"
+                                            class="block text-lg text-gray-600 mb-2 mt-1 w-full border-none">{{ $question_descriptions[$index]['content'] }}</textarea>
                                         </div>
                                     </div>
                                 @endforeach
@@ -405,8 +406,9 @@
                                         <div class="mt-4 text-xl text-gray-600 leading-7 font-semibold">
                                             {{ $case_informations[$index]['title'] }}
                                         </div>
-                                        <div class="mt-2 text-xl text-gray-600">
-                                            {{ $case_informations[$index]['content'] }}
+                                        <div class="mt-2">
+                                            <textarea disabled rows="4" style="resize:none;"
+                                            class="block text-lg text-gray-600 mb-2 mt-1 w-full border-none">{{ $case_informations[$index]['content'] }}</textarea>
                                         </div>
                                         @if ($case_informations[$index]['video'] != '')
                                             <div class="mt-4">
@@ -440,15 +442,16 @@
                                     </div>
                                     @foreach ($case_informations as $index => $case_information)
                                         <div class="ml-2">
-                                            <div class="mt-4 text-lg text-gray-600 leading-7 font-semibold">
+                                            <div class="mt-4 text-xl text-gray-600 leading-7 font-semibold">
                                                 {{ __('資料來源：') . $case_informations[$index]['title'] }}
                                             </div>
                                             @foreach ($problem_assessments as $index2 => $problem_assessment)
-                                                <div class="mt-4 text-lg text-gray-600 leading-7 font-semibold">
+                                                <div class="mt-4 text-xl text-gray-600 leading-7 font-semibold">
                                                     {{ $problem_assessments[$index2]['title'] }}
                                                 </div>
-                                                <div class="mt-2 text-lg text-gray-600">
-                                                    {{ $problem_assessments[$index2]['content'] }}
+                                                <div class="mt-2">
+                                                    <textarea disabled rows="2" style="resize:none;"
+                                                    class="block text-lg text-gray-600 mb-2 mt-1 w-full border-none">{{ $problem_assessments[$index2]['content'] }}</textarea>
                                                 </div>
                                                 <div class="mt-2">
                                                     <textarea
@@ -466,11 +469,12 @@
 
                                     <div class="ml-2">
                                         @foreach ($problem_solveds as $index => $problem_solved)
-                                            <div class="mt-4 text-lg text-gray-600 leading-7 font-semibold">
+                                            <div class="mt-4 text-xl text-gray-600 leading-7 font-semibold">
                                                 {{ $problem_solveds[$index]['title'] }}
                                             </div>
-                                            <div class="mt-2 text-lg text-gray-600">
-                                                {{ $problem_solveds[$index]['content'] }}
+                                            <div class="mt-2">
+                                                <textarea disabled rows="2" style="resize:none;"
+                                                class="block text-lg text-gray-600 mb-2 mt-1 w-full border-none">{{ $problem_solveds[$index]['content'] }}</textarea>
                                             </div>
                                             <div class="mt-2">
                                                 <textarea
@@ -494,3 +498,8 @@
         </div>
     </div>
 </div>
+<script src='js/autosize.js'></script>
+<script>
+    autosize(document.querySelectorAll('textarea'));
+</script>
+
