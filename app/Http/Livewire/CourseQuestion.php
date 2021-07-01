@@ -12,11 +12,13 @@ class CourseQuestion extends Component
     use WithPagination;
 
     public $course;
+    public $course_name;
 
     public function mount($course)
     {
         $this->course = $course;
-        if (!Course::find($course)->users()->get()->where('id', Auth::user()->id)->first()) {
+        $this->course_name = Course::find($course)->name;
+        if (Course::find($course)->users()->get()->where('id', Auth::user()->id)->count() == 0) {
             if (Auth::user()->role != 'admin') {
                 return abort(403, '權限錯誤');
             }

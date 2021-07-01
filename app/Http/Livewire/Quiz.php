@@ -24,7 +24,7 @@ class Quiz extends Component
     {
         $this->course_id = $course;
         $this->question_id = $question;
-        if (!Course::find($course)->users()->get()->where('id', Auth::user()->id)->first()) {
+        if (Course::find($course)->users()->get()->where('id', Auth::user()->id)->count() == 0) {
             if (Auth::user()->role != 'admin') {
                 return abort(403, '權限錯誤');
             }

@@ -8,20 +8,18 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                @if (Auth::user()->role == 'teacher' || Auth::user()->role == 'admin')
-                    <div class="mt-4">
-                        <div class="mb-4 text-xl text-gray-600 leading-7 font-semibold">
-                            選擇課程
-                        </div>
-                        <select id="course" wire:model="selected_course" class=" block appearance-none w-auto bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 round
-                        leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            <option value="">-- 選擇課程 --</option>
-                            @foreach ($courses as $course)
-                                <option value="{{ $course->id }}">{{ $course->name }}</option>
-                            @endforeach
-                        </select>
+                <div class="mt-4">
+                    <div class="mb-4 text-xl text-gray-600 leading-7 font-semibold">
+                        選擇課程
                     </div>
-                @endif
+                    <select id="course" wire:model="selected_course" class=" block appearance-none w-auto bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 round
+                    leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <option value="">-- 選擇課程 --</option>
+                        @foreach ($courses as $course)
+                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="flex flex-wrap py-6">
                     <table class="table-auto w-full text-left whitespace-no-wrap py-6 ">
                         <thead>

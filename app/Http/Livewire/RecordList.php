@@ -17,7 +17,9 @@ class RecordList extends Component
 
     public function render()
     {
-        if (Auth::user()->role == 'teacher') {
+        if (Auth::user()->role == 'student') {
+            $courses = User::find(Auth::user()->id)->courses()->orderBy('name')->get();
+        } elseif (Auth::user()->role == 'teacher') {
             $courses = User::find(Auth::user()->id)->courses_has()->orderBy('name')->get();
         } elseif (Auth::user()->role == 'admin') {
             $courses = Course::orderBy('name')->get();
@@ -33,7 +35,7 @@ class RecordList extends Component
     public function read()
     {
         if (Auth::user()->role == 'student') {
-            return Answer::where('user_id', Auth::user()->id)->paginate(10);
+            return Answer::where('course_id', $this->selected_course)->where('user_id', Auth::user()->id)->paginate(10);
         } else if (Auth::user()->role == 'teacher' || Auth::user()->role == 'admin') {
             return Answer::where('course_id', $this->selected_course)->paginate(10);
         }

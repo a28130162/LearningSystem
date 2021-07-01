@@ -33,7 +33,7 @@ class RecordContent extends Component
                 return abort(403, '權限錯誤');
             }
         } elseif (Auth::user()->role == 'teacher') {
-            if (Answer::find($record)->course()->user()->id !== Auth::user()->id) {
+            if (Answer::find($record)->course()->first()->user_id !== Auth::user()->id) {
                 return abort(403, '權限錯誤');
             }
         } elseif (Auth::user()->role != 'admin') {

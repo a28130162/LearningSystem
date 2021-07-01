@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('課程試題') }}
+            {{$course_name}}{{ __('–課程個案') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -12,10 +12,10 @@
                         <tr>
                             <th
                                 class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
-                                試題科目</th>
+                                科目</th>
                             <th
                                 class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                試題名稱</th>
+                                個案名稱</th>
                             <th
                                 class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                             </th>
@@ -40,7 +40,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="4">{{ __('未查詢到任何課程試題') }}</td>
+                                <td colspan="4">{{ __('未查詢到任何課程個案') }}</td>
                             </tr>
                         @endif
                     </tbody>
