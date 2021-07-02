@@ -49,9 +49,17 @@ class CourseEdit extends Component
 
     public function course_update()
     {
-        $validatedData = $this->validate([
-            'name' => ['required', 'string', 'max:255', Rule::unique('courses', 'name')->ignore($this->course_Id)]
-        ]);
+        $validatedData = $this->validate(
+            [
+                'name' => ['required', 'string', 'max:255', 'unique:,courses,name,' . $this->course_Id]
+            ],
+            [
+                'name.reuqired' => '請輸入課程名稱',
+                'name.string' => '請輸入字串',
+                'name.max' => '最大字元數為255字元',
+                'name.unique' => '此課程名稱已被使用',
+            ]
+        );
         $this->data->update($validatedData);
         session()->flash('course_saved', '已更新課程資訊');
     }
@@ -68,14 +76,22 @@ class CourseEdit extends Component
 
     public function add_student()
     {
-        $validatedData = $this->validate([
-            'student_id.*.student_id' => ['required', 'string', 'max:255', 'exists:users,student_id',],
-        ]);
+        $validatedData = $this->validate(
+            [
+                'student_id.*.student_id' => ['required', 'exists:users,student_id',],
+            ],
+            [
+                'student_id.*.student_id.required' => '請輸入學號',
+                'student_id.*.student_id.exists' => '學號輸入錯誤',
+            ]
+        );
         foreach ($this->student_id as $index => $student) {
             $this->student[$index]['id'] = User::where('student_id', $this->student_id[$index]['student_id'])->first()->id;
         }
         $validatedData2 = $this->validate([
             'student.*.id' => [Rule::unique('course_user', 'user_id')->where('course_id', $this->course_Id)],
+        ], [
+            'student.*.id.unique' => '此學生已加入此課程',
         ]);
         foreach ($this->student as $index => $student_id) {
             $this->data->users()->attach($this->student[$index]['id']);

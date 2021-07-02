@@ -21,11 +21,23 @@ class CommentPaper extends Component
     public function rules()
     {
         return [
-            'name' => ['required', Rule::unique('comment_papers', 'name')->ignore($this->comment_paper_id)],
+            'name' => ['required', 'unique:comment_papers,name,' . $this->comment_paper_id],
             'description' => 'required',
             'comment_projects.*.name' => 'required',
             'comment_projects.*.project_contents.*.dimension' => 'required',
             'comment_projects.*.project_contents.*.level_content' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => '請輸入試卷名稱',
+            'name.unique' => '此試卷名稱已被使用',
+            'description.required' => '請選擇科目',
+            'comment_projects.*.name.required' => '請輸入項目名稱',
+            'comment_projects.*.project_contents.*.dimension.required' => '請輸入表現向度',
+            'comment_projects.*.project_contents.*.level_content.required' => '請輸入表現等級內容',
         ];
     }
 

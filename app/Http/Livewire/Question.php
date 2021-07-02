@@ -30,8 +30,8 @@ class Question extends Component
     {
         return [
             'subject_id' => 'required',
-            'name' => ['required', Rule::unique('questions', 'name')->ignore($this->ModelId)],
-            'quiz_time' => ['required', 'numeric'],
+            'name' => ['required', 'unique:questions,name,' . $this->ModelId],
+            'quiz_time' => ['required', 'integer', 'min:1'],
             'question_descriptions.*.title' => 'required',
             'question_descriptions.*.content' => 'required',
             'case_informations.*.title' => 'required',
@@ -40,6 +40,26 @@ class Question extends Component
             'problem_assessments.*.content' => 'required',
             'problem_solveds.*.title' => 'required',
             'problem_solveds.*.content' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'subject_id.required' => '請選擇科目',
+            'name.required' => '請輸入個案名稱',
+            'name.unique' => '此個案名稱已被使用',
+            'quiz_time.required' => '請輸入測驗時間',
+            'quiz_time.integer' => '請輸入整數',
+            'quiz_time.min' => '請輸入大於0的正整數',
+            'question_descriptions.*.title.required' => '請輸入作答說明標題',
+            'question_descriptions.*.content.required' => '請輸入作答說明內容',
+            'case_informations.*.title.required' => '請輸入案例資料標題',
+            'case_informations.*.content.required' => '請輸入案例資料內容',
+            'problem_assessments.*.title.required' => '請輸入問題評估標題',
+            'problem_assessments.*.content.required' => '請輸入問題評估內容',
+            'problem_solveds.*.title.required' => '請輸入問題解決標題',
+            'problem_solveds.*.content.required' => '請輸入問題解決內容',
         ];
     }
 

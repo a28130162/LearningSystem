@@ -35,22 +35,49 @@ class User extends Component
             return [
                 'selectedDepartment' => 'required',
                 'classes_id' => 'required',
-                'student_id' => ['required', 'string', 'max:255', Rule::unique('users', 'student_id')->ignore($this->ModelId)],
+                'student_id' => ['required', 'string', 'max:255', 'unique:users,student_id,' . $this->ModelId],
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->ModelId)],
-                'account_number' => ['required', 'string', 'max:255', Rule::unique('users', 'account_number')->ignore($this->ModelId)],
-                'password' => ['required', 'string'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $this->ModelId],
+                'account_number' => ['required', 'string', 'max:255', 'unique:users,account_number,' . $this->ModelId],
+                'password' => ['required', 'string', 'max:255'],
                 'role' => 'required',
             ];
         } else {
             return [
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->ModelId)],
-                'account_number' => ['required', 'string', 'max:255', Rule::unique('users', 'account_number')->ignore($this->ModelId)],
-                'password' => ['required', 'string'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $this->ModelId],
+                'account_number' => ['required', 'string', 'max:255', 'unique:users,account_number,' . $this->ModelId],
+                'password' => ['required', 'string', 'max:255'],
                 'role' => 'required',
             ];
         }
+    }
+
+    public function messages()
+    {
+        return [
+            'selectedDepartment.required' => '請選擇科系',
+            'classes_id.required' => '請選擇班級',
+            'student_id.required' => '請輸入學號',
+            'student_id.string' => '請輸入字串',
+            'student_id.max' => '最大字元數為255字元',
+            'student_id.unique' => '此學號已被使用',
+            'name.required' => '請輸入使用者名稱',
+            'name.string' => '請輸入字串',
+            'name.max' => '最大字元數為255字元',
+            'email.required' => '請輸入電子信箱',
+            'email.string' => '請輸入字串',
+            'email.max' => '最大字元數為255字元',
+            'email.unique' => '此電子信箱已被使用',
+            'account_number.required' => '請輸入帳號',
+            'account_number.string' => '請輸入字串',
+            'account_number.max' => '最大字元數為255字元',
+            'account_number.unique' => '此帳號名稱已被使用',
+            'password.required' => '請輸入密碼',
+            'password.string' => '請輸入字串',
+            'password.max' => '最大字元數為255字元',
+            'role.required' => '請選擇角色',
+        ];
     }
 
     public function updated($propertyName)
@@ -94,15 +121,27 @@ class User extends Component
 
     public function ModelData()
     {
-        return [
-            'classes_id' => $this->classes_id,
-            'student_id' => $this->student_id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'account_number' => $this->account_number,
-            'password' => Hash::make($this->password),
-            'role' => $this->role,
-        ];
+        if ($this->role == 'student') {
+            return [
+                'classes_id' => $this->classes_id,
+                'student_id' => $this->student_id,
+                'name' => $this->name,
+                'email' => $this->email,
+                'account_number' => $this->account_number,
+                'password' => Hash::make($this->password),
+                'role' => $this->role,
+            ];
+        } else {
+            return [
+                'classes_id' => '',
+                'student_id' => '',
+                'name' => $this->name,
+                'email' => $this->email,
+                'account_number' => $this->account_number,
+                'password' => Hash::make($this->password),
+                'role' => $this->role,
+            ];
+        }
     }
 
     public function UpdataShowModal($id)

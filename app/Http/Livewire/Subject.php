@@ -18,7 +18,15 @@ class Subject extends Component
     public function rules()
     {
         return [
-            'name' => ['required', Rule::unique('subjects', 'name')->ignore($this->ModelId)],
+            'name' => ['required', 'unique:subjects,name,' . $this->ModelId],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => '請輸入科目名稱',
+            'name.unique' => '此科目名稱已被使用',
         ];
     }
 

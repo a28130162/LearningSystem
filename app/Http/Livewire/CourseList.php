@@ -19,8 +19,24 @@ class CourseList extends Component
 
     public function rules()
     {
+        if (Auth::user()->role == 'admin') {
+            return [
+                'user_id' => 'required',
+                'name' => ['required', 'unique:courses,name'],
+            ];
+        } else {
+            return [
+                'name' => ['required', 'unique:courses,name'],
+            ];
+        }
+    }
+
+    public function messages()
+    {
         return [
-            'name' => ['required', Rule::unique('courses', 'name')],
+            'user_id.required' => '請選擇課程指導老師',
+            'name.required' => '請輸入課程名稱',
+            'name.unique' => '此課程名稱已被使用',
         ];
     }
 

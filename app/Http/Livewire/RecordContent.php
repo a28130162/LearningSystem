@@ -25,6 +25,13 @@ class RecordContent extends Component
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'comments.*.*.score.required' => '請選擇評論分數',
+        ];
+    }
+
     public function mount($record)
     {
         $this->record_id = $record;

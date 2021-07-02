@@ -74,6 +74,7 @@
                                             @endforeach
                                         @endif
                                     </select>
+                                    @error('user_id') <span class="error">{{ $message }}</span> @enderror
                                 </div>
                             @endif
                             <div class="mt-4">

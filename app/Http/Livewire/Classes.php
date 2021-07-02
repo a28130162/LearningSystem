@@ -21,7 +21,18 @@ class Classes extends Component
     {
         return [
             'department_id' => 'required',
-            'name' => ['required', Rule::unique('classes', 'name')->ignore($this->ModelId)],
+            'name' => [
+                'required', Rule::unique('classes', 'name')->ignore($this->ModelId)->where('department_id', $this->department_id)
+            ],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'department_id.required' => '請選擇科系',
+            'name.required' => '請輸入班級名稱',
+            'name.unique' => '此班級名稱已被使用',
         ];
     }
 

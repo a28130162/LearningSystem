@@ -18,7 +18,15 @@ class Department extends Component
     public function rules()
     {
         return [
-            'name' => ['required', Rule::unique('departments', 'name')->ignore($this->ModelId)],
+            'name' => ['required', 'unique:departments,name,' . $this->ModelId],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => '請輸入科系名稱',
+            'name.unique' => '此科系名稱已被使用',
         ];
     }
 
