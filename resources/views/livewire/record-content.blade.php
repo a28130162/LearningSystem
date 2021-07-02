@@ -203,7 +203,7 @@
                         </div>
                         <div class="mt-4">
                             <div class="mt-4 border-b-2 border-gray-200 text-xl text-gray-600 leading-7 font-semibold">
-                                {{ __('問題評估') }}
+                                {{ __('評論內容') }}
                             </div>
                             @foreach ($comment_papers->comment_projects as $index => $comment_project)
                                 <div class="ml-2">

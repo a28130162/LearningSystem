@@ -110,17 +110,19 @@
                     @endif
 
                     <x-slot name="content">
-                        <div class="mt-4">
-                            <x-jet-label for="role" value="{{ __('角色') }}" />
-                            <select id="role" wire:model="role" class=" block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 round
-                                leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                <option value="">-- 選擇角色 --</option>
-                                <option value="student">學生</option>
-                                <option value="teacher">老師</option>
-                                <option value="admin">管理者</option>
-                            </select>
-                            @error('role') <span class="error">{{ __('請選擇角色') }}</span> @enderror
-                        </div>
+                        @if(empty($ModelId))
+                            <div class="mt-4">
+                                <x-jet-label for="role" value="{{ __('角色') }}" />
+                                <select id="role" wire:model="role" class=" block appearance-none w-full bg-white border border-gray-200 text-gray-700 py-3 px-4 pr-8 round
+                                    leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="">-- 選擇角色 --</option>
+                                    <option value="student">學生</option>
+                                    <option value="teacher">老師</option>
+                                    <option value="admin">管理者</option>
+                                </select>
+                                @error('role') <span class="error">{{ __('請選擇角色') }}</span> @enderror
+                            </div>
+                        @endif
 
                         <div class="mt-4" {{ $hidden }}>
                             <x-jet-label for="department_id" value="{{ __('選擇科系') }}" />
@@ -183,12 +185,6 @@
                             <x-jet-input id="password" class="block mt-1 w-full" type="password"
                                 wire:model.debounce.500ms="password" />
                             @error('password') <span class="error">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div class="mt-4">
-                            <x-jet-label for="password_confirmation" value="{{ __('確認密碼') }}" />
-                            <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                                wire:model.debounce.500ms="password_confirmation" />
                         </div>
                     </x-slot>
 

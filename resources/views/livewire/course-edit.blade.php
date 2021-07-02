@@ -196,13 +196,15 @@
                                 <div class="relative">
                                     <x-jet-input class="w-full" type="text"
                                         wire:model.debounce.500ms="student_id.{{$index}}.student_id" />
-                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-                                        <button wire:click="unset_student" class="text-red-600">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-                                        </button>
-                                    </div>
+                                    @if(count($student_id) > 1)
+                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                                            <button wire:click="unset_student({{$index}})" class="text-red-600">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    @endif
                                 </div>
                                 @error('student_id.'.$index.'.student_id') <span class="error">{{ $message }}</span> @enderror
                                 @error('student.'.$index.'.id') <span class="error">{{ $message }}</span> @enderror

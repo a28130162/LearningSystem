@@ -39,7 +39,7 @@ class User extends Component
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->ModelId)],
                 'account_number' => ['required', 'string', 'max:255', Rule::unique('users', 'account_number')->ignore($this->ModelId)],
-                'password' => ['required', 'string', 'confirmed'],
+                'password' => ['required', 'string'],
                 'role' => 'required',
             ];
         } else {
@@ -47,7 +47,7 @@ class User extends Component
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->ModelId)],
                 'account_number' => ['required', 'string', 'max:255', Rule::unique('users', 'account_number')->ignore($this->ModelId)],
-                'password' => ['required', 'string', 'confirmed'],
+                'password' => ['required', 'string'],
                 'role' => 'required',
             ];
         }
@@ -67,13 +67,13 @@ class User extends Component
     {
         return view('livewire.user', [
             'data' => $this->read(),
-            'departments' => Department::orderBy('name')->get(),
+            'departments' => Department::all(),
         ]);
     }
 
     public function read()
     {
-        return ModelsUser::orderBy('role')->orderBy('name')->get()->paginate(10);
+        return ModelsUser::all()->paginate(10);
     }
 
     public function CreateShowModal()

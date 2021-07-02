@@ -85,8 +85,8 @@ class Question extends Component
             'content' => '',
         ];
         $this->problem_solveds[] = [
-            'title',
-            'content',
+            'title' => '',
+            'content' => '',
         ];
         $this->ModalFormVisible = true;
     }

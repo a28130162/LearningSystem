@@ -1,12 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            @if (Auth::user()->role == 'admin')
-                {{ __('課程管理') }}
-            @else
-                {{ __('課程列表') }}
-            @endif
-
+            {{ __('課程列表') }}
         </h2>
     </x-slot>
 
