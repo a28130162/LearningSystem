@@ -36,7 +36,7 @@
                                 <x-jet-label for="name" value="{{ __('課程名稱') }}" />
 
                                 <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="name"
-                                    :disabled="! (Auth::user()->role=='teacher'||'admin')" />
+                                    :disabled="! (Auth::user()->role=='teacher'||Auth::user()->role=='admin')" />
                                 @error('name') <span class="error">{{ $message }}</span> @enderror
                             </div>
                         </div>
@@ -45,9 +45,9 @@
                         class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
                         <div class="mr-3">
                             @if (session()->has('course_saved'))
-                                <div class="text-sm text-gray-600">
-                                    {{ session('course_saved') }}
-                                </div>
+                            <div class="text-sm text-gray-600">
+                                {{ session('course_saved') }}
+                            </div>
                             @endif
                         </div>
                         <x-jet-button wire:click="course_update">
@@ -79,41 +79,41 @@
                             </x-jet-button>
                             <div class="ml-3">
                                 @if (session()->has('success_add'))
-                                    <div class="text-md items-center text-gray-600">
-                                        {{ session('success_add') }}
-                                    </div>
+                                <div class="text-md items-center text-gray-600">
+                                    {{ session('success_add') }}
+                                </div>
                                 @endif
                             </div>
                         </div>
                         @if($data->users->isNotEmpty())
-                            <div class="mt-4 space-y-6">
-                                <div class="flex items-center justify-between text-gray-900 text-md bg-gray-50">
-                                    <div class="flex-1 items-center px-4 py-3">
-                                        <div class="ml-4">{{ __('學號') }}</div>
-                                    </div>
-                                    <div class="flex-1 items-center px-4 py-3">
-                                        <div class="ml-4">{{ __('姓名') }}</div>
-                                    </div>
-                                    <div class="flex-1 items-center px-4 py-3">
-                                    </div>
+                        <div class="mt-4 space-y-6">
+                            <div class="flex items-center justify-between text-gray-900 text-md bg-gray-50">
+                                <div class="flex-1 items-center px-4 py-3">
+                                    <div class="ml-4">{{ __('學號') }}</div>
                                 </div>
-                                @foreach ($data->users->sortBy('name') as $user)
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex-1 items-center px-4 py-3">
-                                            <div class="ml-4">{{ $user->student_id }}</div>
-                                        </div>
-                                        <div class="flex-1 items-center px-4 py-3">
-                                            <div class="ml-4">{{ $user->name }}</div>
-                                        </div>
-                                        <div class="flex-1 items-center px-4 py-3 text-center">
-                                            <button class="cursor-pointer ml-6 text-sm text-red-500"
-                                                wire:click="leave_confirm('{{ $user->id }}')">
-                                                {{ __('刪除') }}
-                                            </button>
-                                        </div>
-                                    </div>
-                                @endforeach
+                                <div class="flex-1 items-center px-4 py-3">
+                                    <div class="ml-4">{{ __('姓名') }}</div>
+                                </div>
+                                <div class="flex-1 items-center px-4 py-3">
+                                </div>
                             </div>
+                            @foreach ($data->users->sortBy('name') as $user)
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1 items-center px-4 py-3">
+                                    <div class="ml-4">{{ $user->student_id }}</div>
+                                </div>
+                                <div class="flex-1 items-center px-4 py-3">
+                                    <div class="ml-4">{{ $user->name }}</div>
+                                </div>
+                                <div class="flex-1 items-center px-4 py-3 text-center">
+                                    <button class="cursor-pointer ml-6 text-sm text-red-500"
+                                        wire:click="leave_confirm('{{ $user->id }}')">
+                                        {{ __('刪除') }}
+                                    </button>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                         @endif
                     </div>
                 </div>
@@ -141,41 +141,41 @@
                             </x-jet-button>
                             <div class="ml-3">
                                 @if (session()->has('question_saved'))
-                                    <div class="text-md items-center text-gray-600">
-                                        {{ session('question_saved') }}
-                                    </div>
+                                <div class="text-md items-center text-gray-600">
+                                    {{ session('question_saved') }}
+                                </div>
                                 @endif
                             </div>
                         </div>
                         @if ($data->questions->isNotEmpty())
-                            <div class="mt-4 space-y-6">
-                                <div class="flex items-center justify-between text-gray-900 text-md bg-gray-50">
-                                    <div class="flex-1 items-center px-4 py-3">
-                                        <div class="ml-4">{{ __('科目') }}</div>
-                                    </div>
-                                    <div class="flex-1 items-center px-4 py-3">
-                                        <div class="ml-4">{{ __('個案名稱') }}</div>
-                                    </div>
-                                    <div class="flex-1 items-center px-4 py-3">
-                                    </div>
+                        <div class="mt-4 space-y-6">
+                            <div class="flex items-center justify-between text-gray-900 text-md bg-gray-50">
+                                <div class="flex-1 items-center px-4 py-3">
+                                    <div class="ml-4">{{ __('科目') }}</div>
                                 </div>
-                                @foreach ($data->questions->sortBy('name') as $question)
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex-1 items-center px-4 py-3">
-                                            <div class="ml-4">{{ $question->subject->name }}</div>
-                                        </div>
-                                        <div class="flex-1 items-center px-4 py-3">
-                                            <div class="ml-4">{{ $question->name }}</div>
-                                        </div>
-                                        <div class="flex-1 items-center px-4 py-3 text-center">
-                                            <button class="cursor-pointer ml-6 text-sm text-red-500"
-                                                wire:click="unset_question_model('{{ $question->id }}')">
-                                                {{ __('刪除') }}
-                                            </button>
-                                        </div>
-                                    </div>
-                                @endforeach
+                                <div class="flex-1 items-center px-4 py-3">
+                                    <div class="ml-4">{{ __('個案名稱') }}</div>
+                                </div>
+                                <div class="flex-1 items-center px-4 py-3">
+                                </div>
                             </div>
+                            @foreach ($data->questions->sortBy('name') as $question)
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1 items-center px-4 py-3">
+                                    <div class="ml-4">{{ $question->subject->name }}</div>
+                                </div>
+                                <div class="flex-1 items-center px-4 py-3">
+                                    <div class="ml-4">{{ $question->name }}</div>
+                                </div>
+                                <div class="flex-1 items-center px-4 py-3 text-center">
+                                    <button class="cursor-pointer ml-6 text-sm text-red-500"
+                                        wire:click="unset_question_model('{{ $question->id }}')">
+                                        {{ __('刪除') }}
+                                    </button>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                         @endif
                     </div>
                 </div>
@@ -192,25 +192,29 @@
                     <div class="mt-4">
                         <x-jet-label value="{{ __('請輸入學號') }}" />
                         @foreach($student_id as $index => $input_student)
-                            <div class="py-1">
-                                <div class="relative">
-                                    <x-jet-input class="w-full" type="text"
-                                        wire:model.debounce.500ms="student_id.{{$index}}.student_id" />
-                                    @if(count($student_id) > 1)
-                                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
-                                            <button wire:click="unset_student({{$index}})" class="text-red-600">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    @endif
+                        <div class="py-1">
+                            <div class="relative">
+                                <x-jet-input class="w-full" type="text"
+                                    wire:model.debounce.500ms="student_id.{{$index}}.student_id" />
+                                @if(count($student_id) > 1)
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                                    <button wire:click="unset_student({{$index}})" class="text-red-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
                                 </div>
-                                @error('student_id.'.$index.'.student_id') <span class="error">{{ $message }}</span> @enderror
-                                @error('student.'.$index.'.id') <span class="error">{{ $message }}</span> @enderror
+                                @endif
                             </div>
+                            @error('student_id.'.$index.'.student_id') <span class="error">{{ $message }}</span>
+                            @enderror
+                            @error('student.'.$index.'.id') <span class="error">{{ $message }}</span> @enderror
+                        </div>
                         @endforeach
-                        <button wire:click="more_student" class="mt-4 px-4 py-1 rounded bg-blue-600 text-blue-50 max-w-max">+ 更多學生</button>
+                        <button wire:click="more_student"
+                            class="mt-4 px-4 py-1 rounded bg-blue-600 text-blue-50 max-w-max">+ 更多學生</button>
                     </div>
                 </div>
             </x-slot>
@@ -251,28 +255,27 @@
                             </thead>
                             <tbody>
                                 @if ($questions->count())
-                                    @foreach ($questions as $question)
-                                        <tr>
-                                            <td class="border-t-2 border-gray-200 px-4 py-3">
-                                                <x-jet-checkbox
-                                                    wire:model="selected_questions.{{ $question->id }}" />
-                                            </td>
-                                            <td class="border-t-2 border-gray-200 px-4 py-3">
-                                                {{ $question->subject->name }}
-                                            </td>
-                                            <td class="border-t-2 border-gray-200 px-4 py-3">
-                                                {{ $question->name }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                @foreach ($questions as $question)
+                                <tr>
+                                    <td class="border-t-2 border-gray-200 px-4 py-3">
+                                        <x-jet-checkbox wire:model="selected_questions.{{ $question->id }}" />
+                                    </td>
+                                    <td class="border-t-2 border-gray-200 px-4 py-3">
+                                        {{ $question->subject->name }}
+                                    </td>
+                                    <td class="border-t-2 border-gray-200 px-4 py-3">
+                                        {{ $question->name }}
+                                    </td>
+                                </tr>
+                                @endforeach
                                 @else
-                                    <tr>
-                                        <td colspan="3">
-                                            <div class="p-3 bg-gray-50 text-gray-700 rounded shadow-sm">
-                                                {{ __('未查詢到任何個案') }}
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="p-3 bg-gray-50 text-gray-700 rounded shadow-sm">
+                                            {{ __('未查詢到任何個案') }}
+                                        </div>
+                                    </td>
+                                </tr>
                                 @endif
                             </tbody>
                             <tfoot>

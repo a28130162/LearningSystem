@@ -51,7 +51,7 @@ class CourseEdit extends Component
     {
         $validatedData = $this->validate(
             [
-                'name' => ['required', 'string', 'max:255', 'unique:,courses,name,' . $this->course_Id]
+                'name' => ['required', 'string', 'max:255', 'unique:courses,name,' . $this->course_Id]
             ],
             [
                 'name.reuqired' => '請輸入課程名稱',
