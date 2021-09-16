@@ -133,8 +133,6 @@ class User extends Component
             ];
         } else {
             return [
-                'classes_id' => '',
-                'student_id' => '',
                 'name' => $this->name,
                 'email' => $this->email,
                 'account_number' => $this->account_number,
