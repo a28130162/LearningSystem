@@ -156,7 +156,7 @@ class User extends Component
     public function loadModel()
     {
         $data = ModelsUser::Find($this->ModelId);
-        if (!is_null($data->classes_id)) {
+        if (!empty($data->classes_id)) {
             $this->selectedDepartment = $data->classes->department->id;
             $this->updatedSelectedDepartment($data->classes->department->id);
             $this->classes_id = $data->classes_id;
